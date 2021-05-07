@@ -18,7 +18,7 @@ public class TestGoogle {
     }
     
         @Test
-    public void testGoogle2()
+    public void testGoogle3()
     {
         System.out.print("SE INGESA A GOOGLE");
         
