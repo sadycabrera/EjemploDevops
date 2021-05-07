@@ -10,5 +10,18 @@ public class TestGoogle {
     {
         System.out.print("SE INGESA A GOOGLE");
     }
+    
+    @Test
+    public void testGoogle2()
+    {
+        System.out.print("SE INGESA A GOOGLE");
+    }
+    
+        @Test
+    public void testGoogle2()
+    {
+        System.out.print("SE INGESA A GOOGLE");
+        
+    }
 
 }
