@@ -10,13 +10,30 @@ pool:
   name: agente-premia
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- script: 
-    mvn clean test
+stages:
+- stage: Test_Build1
+  # condition: false
+  pool: 
+      name: Azure pipelines
+      vmImage: $(vmImageName)
+  jobs:
+  - job: Test_Automation
+    # continueOnError: true
+    steps:
+        - checkout: self
+        - script: which mvn
+        - script: pwd; ls -ltr
+        - task: Cache@2
+          inputs:
+                key: 'maven | "$(Agent.OS)" | pom.xml'
+                restoreKeys: |
+                      maven | "$(Agent.OS)"
+                      maven
+                path: $(MAVEN_CACHE_FOLDER)
+          displayName: Cache Maven local repo
+        - script: |
+                    env | sort
+                    echo "$(Build.SourceVersionMessage)"
+        - script: /usr/bin/mvn -f pom.xml clean test
+          condition: not(startsWith(variables['Build.SourceVersionMessage'], 'noBuild'))
+          displayName: Build Artifact
