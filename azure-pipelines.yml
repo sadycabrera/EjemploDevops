@@ -13,9 +13,6 @@ pool:
 stages:
 - stage: Test_Build1
   # condition: false
-  pool: 
-      name: Azure pipelines
-      vmImage: $(vmImageName)
   jobs:
   - job: Test_Automation
     # continueOnError: true
